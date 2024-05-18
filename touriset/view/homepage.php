@@ -87,7 +87,7 @@
               </div>
             </div>
           </div>  
-      </section>
+          </section>
        <?php require("C:/xampp/htdocs/touriset/control/control.php");?>
       <br>
       <section id="city">
@@ -96,7 +96,7 @@
         <div class="row"> 
           <?php 
           require("C:/xampp/htdocs/touriset/control/db-conn.php");
-          $s="SELECT  `place`,`place_img` FROM `places` WHERE 1;";
+          $s="SELECT DISTINCT `city`,`place_img` FROM `places` WHERE 1;";
           $r = mysqli_query($conn, $s);
           if ($r) { // Check if query was successful
             while ($row = mysqli_fetch_assoc($r))
@@ -104,12 +104,12 @@
         <div class="col-sm-2"> 
         <figure>
             <img src="../view/city/<?php echo $row['place_img']; ?>" class="rounded" alt="egypt" style="width: 200px; height:200px; margin:2%;">
-            <center> <figcaption style="margin: 2%;"><?php echo $row['place']; ?></figcaption></center>
+            <center> <figcaption style="margin: 2%;"><a class="btn btn-outline-primary"href="searching.php?place=<?php echo $row['city']; ?>"><?php echo $row['city']; ?></a></figcaption></center>
             </figure>
         </div>
 <?php }}?>
         </div>
-       <center> <a href="searching.html" class="  btn btn-outline-primary "> Filter</a></center>
+       
       </section>
       <br>
       <br>
@@ -159,7 +159,7 @@
         <p>Maecenas et eros non quam ultricies interdum. Proin ac dolor vel neque ullamcorper blandit vitae et felis.</p><p> Morbi ante urna,imperdiet vel neque vitae, porta ullamcorper metus. Quisque bibendum venenatis eros sed commodo.</p><p> Nullam ultrices tortor non diam ullamcorper auctor In urna tellus, auctor sit amet est ut, scelerisque volutpat diam.</p></center>
         <div class="row"> 
           <?php
-           $s="SELECT  `catgory`, `catgory_img` FROM `places` WHERE 1";
+           $s="SELECT DISTINCT `catgory`, `catgory_img` FROM `places` WHERE 1";
            $r = mysqli_query($conn, $s);
            if ($r) { // Check if query was successful
              while ($row = mysqli_fetch_assoc($r))
@@ -168,12 +168,11 @@
         <div class="col-sm-2"> 
         <figure>
             <img src="../view/catgory/<?php echo $row['catgory_img']; ?>" class="rounded" alt="egypt" style="width: 200px; height:200px; margin:2%;">
-            <center> <figcaption style="margin: 2%;"><?php echo $row["catgory"];?></figcaption></center>
+            <center> <figcaption style="margin: 2%;"><a class="btn btn-outline-primary"href="searching.php?catgory=<?php echo $row["catgory"];?>"><?php echo $row["catgory"];?></a></figcaption></center>
             </figure>
         </div>
         <?php }}?>
          </div>
-        <center> <a href="searching.html" class="  btn btn-outline-primary "> Filter</a></center>
      </section>
      <br>
      <br>
