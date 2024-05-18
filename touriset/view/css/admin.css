@@ -1,0 +1,29 @@
+input{
+    background: none;
+    border: none;
+    border-bottom: 1px;
+    color:black;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    font-style: italic;
+
+}
+::placeholder
+{
+    color:black;
+    font-style: italic;
+}
+textarea
+{
+    background: none;
+    border: none;
+    border-bottom: 1px;
+    color:black;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    font-style: italic;
+}
+body{
+    background-color: black;
+    color:white;
+}
