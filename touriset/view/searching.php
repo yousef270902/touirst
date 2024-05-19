@@ -36,49 +36,69 @@
 require("C:/xampp/htdocs/touriset/control/db-conn.php");
     if(isset($_GET['place'])) {
         $place = $_GET['place'];
-        $s="SELECT  `place`, `catgory`, `link_destination` FROM `places` WHERE `city`='$place' ORDER BY place ASC";
+        $s="SELECT p.id, p.place, p.city, p.place_img, p.catgory, p.catgory_img, p.link_destination, p.video, pd.description, pd.price
+        FROM places p
+        JOIN place_details pd ON p.id = pd.id WHERE `city`='$place' ORDER BY place ASC";
     }
     else
     {
       if (isset($_GET['catgory']))
       {
       $catgory=$_GET['catgory'];
-      $s="SELECT  `place`, `catgory`, `link_destination` FROM `places` WHERE `catgory`='$catgory' ORDER BY place ASC";
+      $s="SELECT p.id, p.place, p.city, p.place_img, p.catgory, p.catgory_img, p.link_destination, p.video, pd.description, pd.price
+      FROM places p
+      JOIN place_details pd ON p.id = pd.id WHERE `catgory`='$catgory' ORDER BY place ASC";
     }
   }
   $result = mysqli_query($conn, $s);
 
  
     ?>
-<section id="viewbycatgory">
-    <center><h5 style="color:blue;">Filter</h5>
+<section id="viewbycategory">
+    <center>
+        <h5 style="color:blue;">Filter</h5>
         <hr style="width:25%;height:2px;color:white;">
-    <table class="table table-striped" style="width:55%;" id="placesTable">
-        <thead>
-          <tr>
-            <th scope="col">place</th>
-            <th scope="col">catgory</th>
-            <th scope="col">Location</th>
-            <th scope="col">comment&rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {?>
-          <tr>
-            <td><?php echo $row['place'];?></td>
-            <td><?php echo $row['catgory'];?></td>
-            <td><a class="btn btn-outline-primary" href="<?php echo $row['link_destination'];?>">GO</a</td>
-            <td><a class="btn btn-outline-primary"  href="rate.html">Rate</a></td>
-          </tr>
-          <?php }} else {?>
-            <tr>
-                        <td colspan="4">No results found</td>
+        <table class="table table-striped" style="width:55%;" id="placesTable">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">place</th>
+                    <th scope="col">category</th>
+                    <th scope="col">more information</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">comment & rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['place']; ?></td>
+                            <td><?php echo $row['catgory']; ?></td>
+                            <td>
+                                <button class="btn btn-outline-primary" 
+                                        onclick="showInfo('<?php echo $row['description']; ?>', '<?php echo $row['price']; ?>')">More Info</button>
+                            </td>
+                            <td><a class="btn btn-outline-primary" href="<?php echo $row['link_destination']; ?>">GO</a></td>
+                            <td><a class="btn btn-outline-primary" href="rate.html">Rate</a></td>
+                        </tr>
+                    <?php } 
+                } else { ?>
+                    <tr>
+                        <td colspan="6">No results found</td>
                     </tr>
                 <?php } ?>
-        </tbody>
-      </table>
-
+            </tbody>
+        </table>
+        <div class="card" style="width:300px; display:none;" id="information">
+        <img class="card-img-top" src="../view/city/trip.png" alt="Card image">
+            <div class="card-img-overlay">
+                <h4 class="card-title">More Info</h4>
+                <h5 id="infoContent"></h5>
+                <button onclick="closeInfo()" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
       <script>
       function filterTable() {
             var input, filter, table, tr, td, i, j, txtValue;
@@ -101,6 +121,14 @@ require("C:/xampp/htdocs/touriset/control/db-conn.php");
                 }
             }
         }
+        function showInfo(description, price) {
+        document.getElementById('infoContent').innerText = "Description: " + description + "\nPrice: " + price;
+        document.getElementById('information').style.display = 'block';
+    }
+
+    function closeInfo() {
+        document.getElementById('information').style.display = 'none';
+    }  
 </script>
 </section>
 </center>
