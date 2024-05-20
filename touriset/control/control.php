@@ -17,7 +17,9 @@ if(isset($_POST["submit"]))
                 $catgoryimg=$_POST['catgoryphoto'];
                 $link=$_POST['link'];
                 $video=$_POST['video'];
-                $customer->add($place,$city,$cityimg,$catgory,$catgoryimg,$link,$video);
+                $description=$_POST["description"];
+                $price=$_POST["price"];
+                $customer->add($place,$city,$cityimg,$catgory,$catgoryimg,$link,$video,$description,$price);
 
             }
             break;
@@ -51,6 +53,14 @@ if(isset($_POST["submit"]))
                             $user->login($email, $password);
                         }
                         break;
+                        case 'save':
+                            {
+                                //$id=["id"];
+                                $place=$_POST['place_name'];
+                                $userss=$_POST['user'];
+                                $user->saving($place,$userss);
+                            }
+                            break;
     }
 }
 ?>
