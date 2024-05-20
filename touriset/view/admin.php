@@ -42,7 +42,7 @@
     <center> 
 <section id="add" style="display:none;"> 
 <div class="container mt-3">
-  <div class="card img-fluid" style="width:550px">
+  <div class="card img-fluid" style="width:700px">
     <img class="card-img-top" src="../view/city/trip.png" alt="Card image" style="width:100%">
     <div class="card-img-overlay">
       <i> <h5 class="card-title">Add Place</h5></i>
@@ -67,6 +67,12 @@
             <br>
             <br>
             <input placeholder="Enter video" name="video" width="15%" height="5%" type="file" required>
+            <br>
+            <br>
+            <textarea width="15%" height="5%" name="description" required>Description:......</textarea>
+            <br>
+            <br>
+            <input placeholder="Enter price" name="price" width="15%" height="5%" type="text" required>
             <br>
             <br>
         <input type="submit" name="submit" class="btn btn-primary" value="Save">

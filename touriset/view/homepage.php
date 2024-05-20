@@ -54,11 +54,11 @@
                       <div class="card-img-overlay">
                         <h4 class="card-title">Sign Up</h4>
                         <form method="post"> 
-                        <input class="card-text" type="text" placeholder="Enter name" style="color:white;" name="username">
+                        <input class="card-text" type="text" placeholder="Enter name" style="color:white;" name="username" required>
                         <br>
-                        <input class="card-text" type="email" placeholder="Enter email" style="color:white;" name="email">
+                        <input class="card-text" type="email" placeholder="Enter email" style="color:white;" name="email" required>
                         <br>
-                        <input class="card-text" type="text" placeholder="Enter password" style="color:white;" name="password">
+                        <input class="card-text" type="text" placeholder="Enter password" style="color:white;" name="password" required>
                         <br>
                         <br>
                         <input type="submit" class="btn btn-outline-success" name="submit" value="Sign UP">
@@ -71,9 +71,9 @@
                       <div class="card-img-overlay">
                         <h4 class="card-title">Sign In</h4>
                         <form method="post"> 
-                        <input class="card-text" type="email" placeholder="Enter email" style="color:white;" name="emails">
+                        <input class="card-text" type="email" placeholder="Enter email" style="color:white;" name="emails" required>
                         <br>
-                        <input class="card-text" type="text" placeholder="Enter password" style="color:white;" name="passwords">
+                        <input class="card-text" type="password" placeholder="Enter password" style="color:white;" name="passwords" required>
                         <br>
                         <br>
                         <input type="submit" class="btn btn-outline-success" name="submit" value="Sign in">  
@@ -87,7 +87,7 @@
               </div>
             </div>
           </div>  
-          </section>
+      </section>
        <?php require("C:/xampp/htdocs/touriset/control/control.php");?>
       <br>
       <section id="city">
@@ -96,7 +96,7 @@
         <div class="row"> 
           <?php 
           require("C:/xampp/htdocs/touriset/control/db-conn.php");
-          $s="SELECT DISTINCT `city`,`place_img` FROM `places` WHERE 1;";
+          $s="SELECT DISTINCT  `city`,`place_img` FROM `places` WHERE 1;";
           $r = mysqli_query($conn, $s);
           if ($r) { // Check if query was successful
             while ($row = mysqli_fetch_assoc($r))
@@ -122,7 +122,7 @@
         <div class="carousel-inner">
             <?php
             require("C:/xampp/htdocs/touriset/control/db-conn.php");
-            $s = "SELECT `video` FROM `places` WHERE 1;";
+            $s = "SELECT DISTINCT `video` FROM `places` WHERE 1;";
             $r = mysqli_query($conn, $s);
             if ($r) { // Check if query was successful
                 $active = true; // Variable to mark the first item as active

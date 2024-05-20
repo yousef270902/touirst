@@ -34,26 +34,32 @@
 <center> 
 <?php
 require("C:/xampp/htdocs/touriset/control/db-conn.php");
-    if(isset($_GET['place'])) {
-        $place = $_GET['place'];
-        $s="SELECT p.id, p.place, p.city, p.place_img, p.catgory, p.catgory_img, p.link_destination, p.video, pd.description, pd.price
-        FROM places p
-        JOIN place_details pd ON p.id = pd.id WHERE `city`='$place' ORDER BY place ASC";
-    }
-    else
-    {
-      if (isset($_GET['catgory']))
-      {
-      $catgory=$_GET['catgory'];
-      $s="SELECT p.id, p.place, p.city, p.place_img, p.catgory, p.catgory_img, p.link_destination, p.video, pd.description, pd.price
-      FROM places p
-      JOIN place_details pd ON p.id = pd.id WHERE `catgory`='$catgory' ORDER BY place ASC";
-    }
-  }
-  $result = mysqli_query($conn, $s);
 
- 
-    ?>
+$s = ''; // Initialize the query string
+
+if (isset($_GET['place'])) {
+    $place = $_GET['place'];
+    $s = "SELECT p.id, p.place, p.catgory, p.link_destination, pd.description, pd.price
+          FROM places p
+          JOIN place_details pd ON p.id = pd.id
+          WHERE `city` = '$place'
+          ORDER BY place ASC";
+} elseif (isset($_GET['catgory'])) {
+    $catgory = $_GET['catgory'];
+    $s = "SELECT p.id, p.place, p.catgory, p.link_destination, pd.description, pd.price
+          FROM places p
+          JOIN place_details pd ON p.id = pd.id
+          WHERE `catgory` = '$catgory'
+          ORDER BY place ASC";
+}
+
+$result = null;
+if (!empty($s)) {
+    $result = mysqli_query($conn, $s);
+}
+
+?>
+
 <section id="viewbycategory">
     <center>
         <h5 style="color:blue;">Filter</h5>
@@ -66,7 +72,6 @@ require("C:/xampp/htdocs/touriset/control/db-conn.php");
                     <th scope="col">category</th>
                     <th scope="col">more information</th>
                     <th scope="col">Location</th>
-                    <th scope="col">comment & rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,7 +86,6 @@ require("C:/xampp/htdocs/touriset/control/db-conn.php");
                                         onclick="showInfo('<?php echo $row['description']; ?>', '<?php echo $row['price']; ?>')">More Info</button>
                             </td>
                             <td><a class="btn btn-outline-primary" href="<?php echo $row['link_destination']; ?>">GO</a></td>
-                            <td><a class="btn btn-outline-primary" href="rate.html">Rate</a></td>
                         </tr>
                     <?php } 
                 } else { ?>
@@ -91,15 +95,38 @@ require("C:/xampp/htdocs/touriset/control/db-conn.php");
                 <?php } ?>
             </tbody>
         </table>
-        <div class="card" style="width:300px; display:none;" id="information">
-        <img class="card-img-top" src="../view/city/trip.png" alt="Card image">
-            <div class="card-img-overlay">
-                <h4 class="card-title">More Info</h4>
-                <h5 id="infoContent"></h5>
-                <button onclick="closeInfo()" class="btn btn-danger">Cancel</button>
-            </div>
-        </div>
-      <script>
+        <div class="card" style="width:400px; display:none; background-color: white;" id="information">
+            <h4 class="card-title">More Info</h4>
+            <h5 id="infoContent" style="color:blue;"></h5>
+            <button onclick="closeInfo()" class="btn btn-danger">Cancel</button>
+        </div>      
+    </center>
+</section>
+</center>
+    <br>
+    <br>
+    <section id="contact">
+        <div class="text-center py-4 align-items-center" id="contactus">
+            <p>Contact travarse on social media</p>
+            <a href="#" class="btn btn-primary m-1" role="button" data-mdb-ripple-init
+               rel="nofollow" target="_blank">
+               <i class="fa fa-telegram"></i>
+            </a>
+            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
+               target="_blank">
+               <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
+               target="_blank">
+               <i class="fa fa-whatsapp"></i>
+            </a>
+            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
+               target="_blank">
+               <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+   </section>
+   <script>
       function filterTable() {
             var input, filter, table, tr, td, i, j, txtValue;
             input = document.getElementById('searchInput');
@@ -130,30 +157,5 @@ require("C:/xampp/htdocs/touriset/control/db-conn.php");
         document.getElementById('information').style.display = 'none';
     }  
 </script>
-</section>
-</center>
-    <br>
-    <br>
-    <section id="contact">
-        <div class="text-center py-4 align-items-center" id="contactus">
-            <p>Contact travarse on social media</p>
-            <a href="#" class="btn btn-primary m-1" role="button" data-mdb-ripple-init
-               rel="nofollow" target="_blank">
-               <i class="fa fa-telegram"></i>
-            </a>
-            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
-               target="_blank">
-               <i class="fa fa-facebook"></i>
-            </a>
-            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
-               target="_blank">
-               <i class="fa fa-whatsapp"></i>
-            </a>
-            <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" data-mdb-ripple-init
-               target="_blank">
-               <i class="fa fa-instagram"></i>
-            </a>
-          </div>
-   </section>
 </body>
 </html>
