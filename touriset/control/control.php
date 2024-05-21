@@ -61,6 +61,14 @@ if(isset($_POST["submit"]))
                                 $user->saving($place,$userss);
                             }
                             break;
+                            case 'rate':
+                                {
+                                    $rate_place=$_POST['rate_place'];
+                                    $user_rate=$_POST['user_rate'];
+                                    if(isset($_POST['rating']))
+                                    $rate=$_POST['rating'];
+                                    $user->rate($rate_place,$rate,$user_rate);
+                                }
     }
 }
 ?>
