@@ -1,0 +1,12 @@
+set @autoid=0;
+UPDATE places set places.id=@autoid:=(@autoid+1);
+alter TABLE places AUTO_INCREMENT =1;
+set @autoid=0;
+UPDATE users set users.id=@autoid:=(@autoid+1);
+alter TABLE users AUTO_INCREMENT =1;
+set @autoid=0;
+UPDATE comment_rate set comment_rate.id=@autoid:=(@autoid+1);
+alter TABLE comment_rate AUTO_INCREMENT =1;
+set @autoid=0;
+UPDATE rate set rate.id=@autoid:=(@autoid+1);
+alter TABLE rate AUTO_INCREMENT =1;
